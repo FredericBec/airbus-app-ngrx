@@ -1,0 +1,28 @@
+<div>
+    <app-aircrafts-navbar (eventEmitter)="onActionEvent($event)"></app-aircrafts-navbar>
+    <ng-container *ngIf="aircrafts$ | async as result" [ngSwitch]="result.dataState">
+        <ng-container *ngSwitch="dataStateEnum.LOADING">
+            <div>Loading</div>
+        </ng-container>
+        <ng-container *ngSwitch="dataStateEnum.LOADED">
+            <div>Loaded</div>
+        </ng-container>
+        <ng-container *ngSwitch="dataStateEnum.ERROR">
+            <div>{{result.errorMessage}}</div>
+        </ng-container>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Programme</th>
+                <th>Etude</th>
+                <th>Conception</th>
+            </tr>
+            <tr *ngFor="let aircraft of result.data">
+                <td>{{aircraft.id}}</td>
+                <td>{{aircraft.prog}}</td>
+                <td>{{aircraft.design}}</td>
+                <td>{{aircraft.developpment}}</td>
+            </tr>
+        </table>
+    </ng-container>
+</div>
