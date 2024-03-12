@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GetAllAircraftsAction } from 'ngrx/aircrafts.action';
+import { GetAllAircraftsAction, GetDesignedAircraftsAction } from 'ngrx/aircrafts.action';
 import { Observable} from 'rxjs';
 import { Aircraft } from 'src/app/model/aircraft.model';
 import { AppDataState, DataStateEnum } from 'src/app/state/aircraft.state';
@@ -24,7 +24,9 @@ export class AircraftsNavbarComponent implements OnInit {
     this.store.dispatch(new GetAllAircraftsAction({}));
   }
 
-  getDesignedAircrafts(){}
+  getDesignedAircrafts(){
+    this.store.dispatch(new GetDesignedAircraftsAction({}));
+  }
 
   getDevelopmentAircrafts(){}
 }
