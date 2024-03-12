@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable, catchError, map, of, startWith } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { GetAllAircraftsAction } from 'ngrx/aircrafts.action';
+import { Observable} from 'rxjs';
 import { Aircraft } from 'src/app/model/aircraft.model';
-import { AircraftService } from 'src/app/services/aircraft.service';
 import { AppDataState, DataStateEnum } from 'src/app/state/aircraft.state';
 
 @Component({
@@ -14,13 +15,13 @@ export class AircraftsNavbarComponent implements OnInit {
   aircrafts$: Observable<AppDataState<Aircraft[]>> | null = null;
 
   readonly dataStateEnum = DataStateEnum;
-  constructor(private aircraftService: AircraftService) { }
+  constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
   }
 
   getAllAircrafts(){
-    this.eventEmitter.emit("ALL_AIRCRAFTS");
+    this.store.dispatch(new GetAllAircraftsAction({}));
   }
 
   getDesignedAircrafts(){}
