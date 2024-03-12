@@ -20,7 +20,7 @@ export class AircraftService {
   }
 
   public getDevelopmentAircrafts(): Observable<Aircraft[]>{
-    return this.http.get<Aircraft[]>(environment.host + "/aircrafts?developpment=true");
+    return this.http.get<Aircraft[]>(environment.host + "/aircrafts?development=true");
   }
 
   public getAircraftsByMsn(id: number): Observable<Aircraft>{
