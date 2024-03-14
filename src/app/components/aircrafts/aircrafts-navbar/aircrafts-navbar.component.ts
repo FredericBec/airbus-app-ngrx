@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GetAllAircraftsAction, GetDesignedAircraftsAction, GetDevelopmentAircraftsAction } from 'ngrx/aircrafts.action';
+import { GetAllAircraftsAction, GetDesignedAircraftsAction, GetDevelopmentAircraftsAction, GetSearchAircraftsAction } from 'ngrx/aircrafts.action';
 
 
 @Component({
@@ -25,5 +25,9 @@ export class AircraftsNavbarComponent implements OnInit {
 
   getDevelopmentAircrafts(){
     this.store.dispatch(new GetDevelopmentAircraftsAction({}));
+  }
+
+  onSearch(term : string){
+    this.store.dispatch(new GetSearchAircraftsAction({term}));
   }
 }
