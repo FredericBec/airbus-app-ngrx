@@ -1,8 +1,22 @@
 import { Action } from "@ngrx/store";
 import { AircraftsState, AircraftsStateEnum, initState } from "./aircrafts.state";
 import { AircraftsActionTypes, AircraftsActions } from "./aircrafts.action";
+import { EntityAdapter, createEntityAdapter } from "@ngrx/entity";
+import { Operation } from "./operation.state";
 
-export function AircraftsReducer(state : AircraftsState = initState, action: Action){
+export const adapter: EntityAdapter<Operation> = createEntityAdapter<Operation>({
+
+});
+
+export const initialState: AircraftsState = adapter.getInitialState({
+    aircrafts : [],
+    errorMessage: "",
+    dataState: AircraftsStateEnum.INITIAL,
+    ids: [],
+    entities: {}
+});
+
+export function AircraftsReducer(state : AircraftsState = initialState, action: Action){
     switch(action.type){
         case AircraftsActionTypes.GET_ALL_AIRCRAFTS :
             return {...state, dataState: AircraftsStateEnum.LOADING}
