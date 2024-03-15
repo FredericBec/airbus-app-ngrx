@@ -5,5 +5,9 @@
         {"id" : 3, "prog" : "A380", "design" : false, "development" : true },
         {"id" : 4, "prog" : "A400M", "design" : false, "development" : false },
         {"id" : 5, "prog" : "A330", "design" : true, "development" : true }
+    ],
+    "users" : [
+        {"email" : "fred@free.fr", "password" : "1234", "roles" : ["Admin", "User"]},
+        {"email" : "obiwan.kenobi@gmail.com", "password" : "starwars", "roles" : ["User"]}
     ]
 }
