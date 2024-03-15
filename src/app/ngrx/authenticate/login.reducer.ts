@@ -7,7 +7,7 @@ export function LoginReducer(state: LoginState = initialState, action: Action){
         case LoginActionTypes.LOGIN :
             return {...state, dataState: LoginStateEnum.IS_LOGIN_IN}
         case LoginActionTypes.LOGIN_SUCCESS :
-            return {...state, dataState: LoginStateEnum.LOGIN_IN, user: (<LoginActions> action).payload}
+            return {...state, isAuthenticate: true, dataState: LoginStateEnum.LOGIN_IN, user: (<LoginActions> action).payload}
         case LoginActionTypes.LOGIN_ERROR :
             return {...state, dataState: LoginStateEnum.ERROR, errorMessage: (<LoginActions> action).payload}
         default :

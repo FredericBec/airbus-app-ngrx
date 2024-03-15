@@ -14,7 +14,7 @@ export class OnLoginAction implements Action{
 
 export class OnLoginActionSuccess implements Action{
     type: LoginActionTypes = LoginActionTypes.LOGIN_SUCCESS;
-    constructor(public payload: User){}
+    constructor(public payload: any){}
 }
 
 export class OnLoginActionError implements Action{

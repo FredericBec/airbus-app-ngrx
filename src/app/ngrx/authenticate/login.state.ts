@@ -8,12 +8,14 @@ export enum LoginStateEnum{
 }
 
 export interface LoginState{
+    isAuthenticate: boolean,
     user: User | null,
     errorMessage: any,
     dataState: LoginStateEnum
 }
 
 export const initialState: LoginState = {
+    isAuthenticate: false,
     user: null,
     errorMessage: "",
     dataState: LoginStateEnum.INITIAL,
