@@ -18,11 +18,12 @@ export class UserGuard implements CanActivate {
         select(isAuthenticate),
         map(isAuthenticate => {
           if(isAuthenticate === undefined || isAuthenticate === null){
-            return true;
+            this.router.navigateByUrl('login');
+            return false;
           }else if(isAuthenticate){
             return true;
           }else {
-            this.router.navigateByUrl('/login');
+            this.router.navigateByUrl('login');
             return false;
           }
         })
