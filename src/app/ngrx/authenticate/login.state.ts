@@ -3,7 +3,7 @@ import { User } from "src/app/model/user.model";
 export enum LoginStateEnum{
     IS_LOGIN_IN = "Is Login In",
     LOGIN_IN = "Login In",
-    ERROR = "Error",
+    DENIED = "Access Denied",
     INITIAL = "Initial"
 }
 
