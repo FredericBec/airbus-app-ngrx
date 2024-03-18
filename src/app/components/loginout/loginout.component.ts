@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable, map, take } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { OnLoginAction } from 'src/app/ngrx/authenticate/login.action';
-import { selectUser } from 'src/app/ngrx/authenticate/login.selectors';
+import { isAuthenticate, selectLogin, selectUser } from 'src/app/ngrx/authenticate/login.selectors';
+import { LoginState } from 'src/app/ngrx/authenticate/login.state';
 
 @Component({
   selector: 'app-loginout',
@@ -15,17 +17,18 @@ export class LoginoutComponent implements OnInit {
 
   userForm: FormGroup;
   user: User | undefined;
-  userState: Observable<any>;
-  constructor(private formBuilder: FormBuilder, private store: Store) { 
+  authState$: Observable<LoginState> | null = null;
+  isAuthenticate$ : Observable<boolean>
+  constructor(private formBuilder: FormBuilder, private store: Store, private router : Router) { 
     this.userForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-    this.userState = this.store.select(selectUser);
+    this.isAuthenticate$ = this.store.pipe(select(isAuthenticate));
   }
 
   ngOnInit(): void {
-
+    this.authState$ = this.store.pipe(select(selectLogin));
   }
 
   onLogin(form: FormGroup){
@@ -33,6 +36,15 @@ export class LoginoutComponent implements OnInit {
     const password = form.value.password;
     if(form.valid){
       this.store.dispatch(new OnLoginAction({email : email, password : password}));
+      
+      this.isAuthenticate$.pipe(
+        map(authenticate =>{
+            if(authenticate){
+              this.router.navigateByUrl('aircrafts');
+            }
+          }
+        )
+      ).subscribe();
     }
   }
 
