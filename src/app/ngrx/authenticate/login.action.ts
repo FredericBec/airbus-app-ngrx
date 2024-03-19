@@ -4,7 +4,8 @@ import { User } from "src/app/model/user.model";
 export enum LoginActionTypes{
     LOGIN = "[Login] User Login",
     LOGIN_SUCCESS = "[Login] User Login Success",
-    LOGIN_DENIED = "[Login] User Login DENIED",
+    LOGIN_ERROR = "[Login] User Login DENIED",
+    LOGIN_FAILURE = "[Login] User login failure",
     LOGOUT = "[Logout] User logout"
 }
 
@@ -19,7 +20,12 @@ export class OnLoginActionSuccess implements Action{
 }
 
 export class OnLoginActionError implements Action{
-    type: LoginActionTypes = LoginActionTypes.LOGIN_DENIED;
+    type: LoginActionTypes = LoginActionTypes.LOGIN_ERROR;
+    constructor(public payload: string){}
+}
+
+export class OnLoginActionFailure implements Action{
+    type: LoginActionTypes = LoginActionTypes.LOGIN_FAILURE;
     constructor(public payload: string){}
 }
 
@@ -29,4 +35,4 @@ export class OnLogOut implements Action{
     
 }
 
-export type LoginActions = OnLoginAction | OnLoginActionSuccess | OnLoginActionError | OnLogOut;
+export type LoginActions = OnLoginAction | OnLoginActionSuccess | OnLoginActionError | OnLoginActionFailure | OnLogOut;
