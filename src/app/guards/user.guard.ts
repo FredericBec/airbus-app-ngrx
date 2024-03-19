@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Store, select } from '@ngrx/store';
 import { isAuthenticate } from '../ngrx/authenticate/login.selectors';
@@ -17,10 +17,7 @@ export class UserGuard implements CanActivate {
       return this.store.pipe(
         select(isAuthenticate),
         map(isAuthenticate => {
-          if(isAuthenticate === undefined || isAuthenticate === null){
-            this.router.navigateByUrl('login');
-            return false;
-          }else if(isAuthenticate){
+          if(isAuthenticate){
             return true;
           }else {
             this.router.navigateByUrl('login');
