@@ -16,14 +16,14 @@ export class AircraftsComponent implements OnInit {
 
   aircraftsState$: Observable<AircraftsState> | null = null;
 
-  laboratory: Laboratory = new Laboratory;
+  //laboratory: Laboratory = new Laboratory;
   readonly aircraftsStateEnum = AircraftsStateEnum;
 
   constructor(private store: Store<any>) { 
   }
   
   ngOnInit(): void {
-    if(this.laboratory) this.laboratory.tests();
+    //if(this.laboratory) this.laboratory.tests();
     this.aircraftsState$ = this.store.pipe(
       map((state) => state.airbusState)
     );
