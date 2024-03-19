@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, map, take } from 'rxjs';
 import { User } from 'src/app/model/user.model';
-import { OnLoginAction } from 'src/app/ngrx/authenticate/login.action';
+import { OnLoginAction, OnLoginActionError, OnLoginActionFailure } from 'src/app/ngrx/authenticate/login.action';
 import { isAuthenticate, selectLogin, selectUser } from 'src/app/ngrx/authenticate/login.selectors';
-import { LoginState } from 'src/app/ngrx/authenticate/login.state';
+import { LoginState, LoginStateEnum } from 'src/app/ngrx/authenticate/login.state';
 
 @Component({
   selector: 'app-loginout',
@@ -16,9 +16,11 @@ import { LoginState } from 'src/app/ngrx/authenticate/login.state';
 export class LoginoutComponent implements OnInit {
 
   userForm: FormGroup;
-  user: User | undefined;
-  authState$: Observable<LoginState> | null = null;
-  isAuthenticate$ : Observable<boolean>
+  isAuthenticate$ : Observable<boolean>;
+  errorMessage: string | null = null;
+
+  readonly loginStateEnum = LoginStateEnum;
+
   constructor(private formBuilder: FormBuilder, private store: Store, private router : Router) { 
     this.userForm = this.formBuilder.group({
       email: ['', [Validators.required]],
@@ -28,10 +30,10 @@ export class LoginoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authState$ = this.store.pipe(select(selectLogin));
   }
 
   onLogin(form: FormGroup){
+    console.log(form.value);
     const email = form.value.email;
     const password = form.value.password;
     if(form.valid){
@@ -42,9 +44,11 @@ export class LoginoutComponent implements OnInit {
             if(authenticate){
               this.router.navigateByUrl('aircrafts');
             }
-          }
-        )
+          })
       ).subscribe();
+    }else{
+      this.errorMessage = "Veuillez entrer un mot de passe et un e-mail";
+      this.store.dispatch(new OnLoginActionError(this.errorMessage));
     }
   }
 
