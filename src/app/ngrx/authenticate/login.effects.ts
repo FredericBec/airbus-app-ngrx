@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
 import { Observable, catchError, map, mergeMap, of, tap } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
-import { LoginActionTypes, OnLoginAction, OnLoginActionError, OnLoginActionSuccess } from "./login.action";
+import { LoginActionTypes, OnLoginAction, OnLoginActionError, OnLoginActionFailure, OnLoginActionSuccess } from "./login.action";
 
 @Injectable()
 export class LoginEffects{
@@ -17,7 +17,13 @@ export class LoginEffects{
             }),
             mergeMap((action: OnLoginAction) => {
                 return this.authService.login(action.payload.email, action.payload.password).pipe(
-                    map((user) => new OnLoginActionSuccess(user)),
+                    map((user) => {
+                        if(user[0].email === action.payload.email && user[0].password === action.payload.password){
+                            return new OnLoginActionSuccess(user);
+                        }else{
+                            return new OnLoginActionFailure("e-mail ou mot de passe incorrect");
+                        }
+                    }),
                     catchError((err) => of(new OnLoginActionError(err.message)))
                 )
             })

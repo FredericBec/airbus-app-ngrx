@@ -10,14 +10,14 @@ export enum LoginStateEnum{
 
 export interface LoginState{
     isAuthenticate: boolean,
-    user: User | null,
+    user: User[] | [],
     errorMessage: any,
     loginState: LoginStateEnum
 }
 
 export const initialState: LoginState = {
     isAuthenticate: false,
-    user: null,
+    user: [],
     errorMessage: "",
     loginState: LoginStateEnum.INITIAL,
 }

@@ -16,7 +16,6 @@ export class AppComponent implements OnInit{
 
   authState$ : Observable<LoginState> | null = null;
   isAuthenticate: boolean = false;
-  user: User | null = null;
   constructor(private store: Store){
     this.authState$ = this.store.pipe(select(selectLogin));
   }
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit{
     this.authState$?.subscribe(
       (state) => {
         this.isAuthenticate = state.isAuthenticate;
-        this.user = state.user;
       }
     )
   }
