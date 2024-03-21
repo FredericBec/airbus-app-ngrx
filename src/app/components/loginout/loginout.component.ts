@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Observable, map, take } from 'rxjs';
+import { Observable, catchError, map, take } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { OnLoginAction, OnLoginActionError, OnLoginActionFailure } from 'src/app/ngrx/authenticate/login.action';
-import { isAuthenticate, selectLogin, selectUser } from 'src/app/ngrx/authenticate/login.selectors';
+import { errorMessage, isAuthenticate, selectLogin, selectUser } from 'src/app/ngrx/authenticate/login.selectors';
 import { LoginState, LoginStateEnum } from 'src/app/ngrx/authenticate/login.state';
 
 @Component({
@@ -31,7 +31,7 @@ export class LoginoutComponent implements OnInit {
     this.isAuthenticate$ = this.store.pipe(select(isAuthenticate));
     this.userConnected$ = this.store.pipe(select(selectUser));
   }
-
+  
   ngOnInit(): void {
     this.loginState$ = this.store.pipe(
       map((state) => state.authState)
@@ -46,8 +46,6 @@ export class LoginoutComponent implements OnInit {
       this.userConnected$.subscribe(userConnected =>{
         if(userConnected){
           this.router.navigateByUrl('aircrafts');
-        }else{
-          this.errorMessage = "e-mail ou mot de passe incorrect";
         }
       });
     }else{

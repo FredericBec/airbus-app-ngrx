@@ -1,9 +1,9 @@
 <div class="container">
     <div class="card">
         <div class="card-header">Authentification</div>
-        <div *ngIf="errorMessage">
+        <ng-container *ngIf="errorMessage">
             <div class="alert alert-danger">{{errorMessage}}</div>
-        </div>
+        </ng-container>
         <div class="card-body">
             <form [formGroup]="userForm" (ngSubmit)="onLogin(userForm)">
                 <div class="form-group">

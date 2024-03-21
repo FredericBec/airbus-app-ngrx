@@ -18,7 +18,7 @@ export class LoginEffects{
             mergeMap((action: OnLoginAction) => {
                 return this.authService.login(action.payload.email, action.payload.password).pipe(
                     map((user) => {
-                        if(user[0].email === action.payload.email && user[0].password === action.payload.password){
+                        if(user && user.length > 0){
                             return new OnLoginActionSuccess(user);
                         }else{
                             return new OnLoginActionFailure("e-mail ou mot de passe incorrect");

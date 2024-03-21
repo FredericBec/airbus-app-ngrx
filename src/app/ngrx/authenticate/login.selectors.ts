@@ -12,3 +12,8 @@ export const isAuthenticate = createSelector(
     selectLogin,
     (state : LoginState) => state.isAuthenticate
 )
+
+export const errorMessage = createSelector(
+    selectLogin,
+    (state: LoginState) => state.errorMessage 
+)
