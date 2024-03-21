@@ -20,10 +20,13 @@
                     <td>{{aircraft.prog}}</td>
                     <td>{{aircraft.design}}</td>
                     <td>{{aircraft.development}}</td>
-                    <td><button (click)="addOne()">Ajouter une pièce</button></td>
-                    <td><button (click)="removeOne()">Retirer une pièce</button></td>
+                    <td><button class="btn btn-primary" (click)="addOne()">Ajouter une pièce</button></td>
+                    <td><button class="btn btn-danger" (click)="removeOne()">Retirer une pièce</button></td>
                 </tr>
             </table>
+        </ng-container>
+        <ng-container *ngIf="countAlertAircrafts$ | async as countAircrafts">
+            <div class="text-danger">Total aircraft under design and development : {{countAircrafts}}</div>
         </ng-container>
     </ng-container>
 </div>
