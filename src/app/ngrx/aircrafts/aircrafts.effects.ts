@@ -50,7 +50,14 @@ export class AircraftsEffects{
             ofType(AircraftsActionTypes.GET_SEARCH_AIRCRAFTS),
             mergeMap((action : GetSearchAircraftsAction) => {
                 return this.aircraftService.getSearchAircrafts(action.payload.term).pipe(
-                    map((aircrafts) => new GetSearchAircraftsActionSuccess(aircrafts)),
+                    map((aircrafts) => {
+                        if(aircrafts && aircrafts.length > 0){
+                            return new GetSearchAircraftsActionSuccess(aircrafts)
+
+                        }else{
+                            return new GetAllAircraftsActionError("aircrafts doesn't exist")
+                        }
+                    }),
                     catchError((err) => of(new GetSearchAircraftsActionError(err.message)))
                 )
             })
