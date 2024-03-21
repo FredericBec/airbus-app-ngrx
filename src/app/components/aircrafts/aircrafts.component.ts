@@ -6,6 +6,7 @@ import { Aircraft } from 'src/app/model/aircraft.model';
 import { AircraftService } from 'src/app/services/aircraft.service';
 import { AppDataState, DataStateEnum } from 'src/app/state/aircraft.state';
 import { Laboratory } from 'src/app/test/laboratory';
+import { AddOperationAction } from 'src/app/ngrx/aircrafts/operations.action';
 
 @Component({
   selector: 'app-aircrafts',
@@ -29,5 +30,12 @@ export class AircraftsComponent implements OnInit {
     );
   }
 
+  AddOne(){
+    const payload = {
+      id: "1",
+      name: "po"
+    }
+    this.store.dispatch(new AddOperationAction(payload));
+  }
   
 }

@@ -1,8 +1,8 @@
 import { Action } from "@ngrx/store";
-import { AircraftsState, AircraftsStateEnum, initState } from "./aircrafts.state";
+import { AircraftsState, AircraftsStateEnum, Operation, initState } from "./aircrafts.state";
 import { AircraftsActionTypes, AircraftsActions } from "./aircrafts.action";
 import { EntityAdapter, createEntityAdapter } from "@ngrx/entity";
-import { Operation } from "./operation.state";
+import { OperationActionTypes, OperationActions } from "./operations.action";
 
 export const adapter: EntityAdapter<Operation> = createEntityAdapter<Operation>({
 
@@ -42,6 +42,10 @@ export function AircraftsReducer(state : AircraftsState = initialState, action: 
             return {...state, dataState: AircraftsStateEnum.LOADED, aircrafts: (<AircraftsActions> action).payload}
         case AircraftsActionTypes.GET_SEARCH_AIRCRAFTS_ERROR :
             return {...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions> action).payload}
+        case OperationActionTypes.ADD_OPERATION :
+            return adapter.addOne((<OperationActions> action).payload, state)
+        case OperationActionTypes.REMOVE_ONE :
+            return adapter.removeOne((<OperationActions> action).payload, state)
         default :
             return {...state}
     }

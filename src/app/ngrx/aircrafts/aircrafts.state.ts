@@ -1,6 +1,10 @@
 import { EntityState } from "@ngrx/entity";
 import { Aircraft } from "src/app/model/aircraft.model";
-import { Operation } from "./operation.state";
+
+export interface Operation{
+    id: string,
+    name: string
+}
 
 export enum AircraftsStateEnum{
     LOADING = "Loading",
