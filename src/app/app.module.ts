@@ -15,13 +15,15 @@ import { LoginoutComponent } from './components/loginout/loginout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginEffects } from './ngrx/authenticate/login.effects';
 import { LoginReducer } from './ngrx/authenticate/login.reducer';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AircraftsComponent,
     AircraftsNavbarComponent,
-    LoginoutComponent
+    LoginoutComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
