@@ -1,8 +1,13 @@
 <div class="container">
     <div class="card">
         <div class="card-header">Authentification</div>
-        <ng-container *ngIf="errorMessage">
-            <div class="alert alert-danger">{{errorMessage}}</div>
+        <ng-container *ngIf="loginState$ | async as state" [ngSwitch]="state.loginState">
+            <ng-container *ngSwitchCase="loginStateEnum.FAILURE">
+                <div class="alert alert-danger">{{state.errorMessage}}</div>
+            </ng-container>
+            <ng-container *ngSwitchCase="loginStateEnum.ERROR">
+                <div class="alert alert-danger">{{state.errorMessage}}</div>
+            </ng-container>
         </ng-container>
         <div class="card-body">
             <form [formGroup]="userForm" (ngSubmit)="onLogin(userForm)">
