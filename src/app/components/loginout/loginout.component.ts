@@ -16,7 +16,6 @@ import { LoginState, LoginStateEnum } from 'src/app/ngrx/authenticate/login.stat
 export class LoginoutComponent implements OnInit {
 
   userForm: FormGroup;
-  isAuthenticate$ : Observable<boolean>;
   errorMessage: string | null = null;
   userConnected$: Observable<User[] | []>;
   loginState$: Observable<LoginState> | null = null;
@@ -28,7 +27,6 @@ export class LoginoutComponent implements OnInit {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-    this.isAuthenticate$ = this.store.pipe(select(isAuthenticate));
     this.userConnected$ = this.store.pipe(select(selectUser));
   }
   
